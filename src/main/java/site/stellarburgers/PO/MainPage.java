@@ -54,6 +54,12 @@ public class MainPage {
     private SelenideElement sauceForDrop;
     @FindBy(how = How.XPATH, using = ".//span[text()='Соус Spicy-X']")
     private SelenideElement sauceInBasket;
+    @FindBy(how = How.XPATH, using = ".//div/ul[2]")
+    public SelenideElement sauceTitle;
+    @FindBy(how = How.XPATH, using = ".//div/ul[3]")
+    public SelenideElement fillingTitle;
+    @FindBy(how = How.CSS, using = "div[class*='BurgerIngredients_ingredients__menuContainer__Xu3Mo'] > h2:nth-of-type(1)")
+    public SelenideElement bunTitle;
 
     @Step("Click constructor button")
     public void clickConstructor() {
@@ -92,8 +98,8 @@ public class MainPage {
 
     @Step("Check fillings tab exact text 'Начинки'")
     public boolean isFillingsTabText() {
-        fillingsTab.shouldHave(exactText("Начинки"));
-        return true;
+        return fillingTitle.shouldBe(visible).isDisplayed();
+
     }
 
     @Step("Click sauces button")
@@ -103,10 +109,7 @@ public class MainPage {
 
     @Step("Check sauces tab exact text 'Соусы'")
     public boolean isSaucesTabText() {
-        lastIngredient.scrollIntoView(true);
-        saucesButton.click();
-        sauceForDrop.dragAndDropTo(orderBasket);
-        return sauceInBasket.isDisplayed();
+        return sauceTitle.shouldBe(visible).isDisplayed();
     }
 
     @Step("Click buns button")
@@ -116,7 +119,7 @@ public class MainPage {
 
     @Step("Check buns tab exact text 'Булки'")
     public boolean isBunsTabText() {
-        bunsTab.shouldHave(exactText("Булки"));
-        return true;
+        return bunTitle.shouldBe(visible).isDisplayed();
+
     }
 }

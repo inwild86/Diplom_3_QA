@@ -14,7 +14,7 @@ public class LoginPage {
 
     @FindBy(how = How.XPATH, using = ".//input[@name='name']")
     public SelenideElement emailField;
-    @FindBy(how = How.XPATH, using = "//h2[text() = 'Вход']")
+    @FindBy(how = How.CSS, using = "div[class*='Auth_login__3hAey'] > h2")
     private SelenideElement titleLogin;
     @FindBy(how = How.XPATH, using = ".//input[@name='Пароль']")
     public SelenideElement passwordField;
@@ -42,8 +42,8 @@ public class LoginPage {
 
     @Step("Check go to login page")
     public boolean isLoginPage() {
-        titleLogin.shouldBe(visible);
-        return true;
+        return titleLogin.shouldBe(visible).isDisplayed();
+
     }
 
     @Step("Enter your username and password and log in")

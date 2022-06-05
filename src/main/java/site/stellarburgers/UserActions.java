@@ -44,10 +44,26 @@ public class UserActions extends Specification {
     public ValidatableResponse loginUser(User user) {
         return given()
                 .spec(getBaseSpec())
+                .and()
                 .body(user)
                 .when()
                 .post(EndpointsUserApi.USER_LOGIN)
-                .then()
-                .statusCode(SC_OK);
+                .then();
+
     }
+
+
+    @Step
+    public void deleteUser(String accessToken) {
+        if (accessToken == null) {
+            return;
+        }
+        given()
+                .header("Authorization", accessToken)
+                .spec(getBaseSpec())
+                .when()
+                .delete(EndpointsUserApi.DELETE_CUSTOMER)
+                .then();
+    }
+
 }

@@ -2,7 +2,9 @@ package site.stellarburgers;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
 import org.junit.*;
+import io.restassured.response.ValidatableResponse;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +16,8 @@ public class RegistrationTest {
     public UserData userData;
     RegisterPage registerPage = page(RegisterPage.class);
     LoginPage loginPage = page(LoginPage.class);
+    public String token;
+    UserActions userActions = new UserActions();
 
     @Before
     public void setUp() {
@@ -23,6 +27,10 @@ public class RegistrationTest {
 
     @After
     public void tearDown() {
+
+        ValidatableResponse loginResponse = userActions.loginUser(new User(userData.email, userData.password));
+        token = loginResponse.extract().path("accessToken");
+        userActions.deleteUser(token);
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
     }
@@ -42,5 +50,6 @@ public class RegistrationTest {
         userData = UserData.getInvalidPasswordRandom();
         registerPage.fillFormRegisterUser(userData);
         assertTrue(registerPage.errorMessage("Некорректный пароль "));
+
     }
 }

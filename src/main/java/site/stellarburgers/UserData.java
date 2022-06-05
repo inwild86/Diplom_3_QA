@@ -5,14 +5,18 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 
 public class UserData {
-    private String email;
-    private String password;
-    private String name;
+    public String email;
+    public String password;
+    public String name;
 
     public UserData(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+    public UserData(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public String getEmail() {

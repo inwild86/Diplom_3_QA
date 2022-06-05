@@ -48,6 +48,7 @@ public class LoginUserTest {
         mainPage.clicSignInButton();
         loginPage.login(userData.getEmail(), userData.getPassword());
         assertTrue(mainPage.checkCreateOrderButton());
+
     }
 
     @Test
