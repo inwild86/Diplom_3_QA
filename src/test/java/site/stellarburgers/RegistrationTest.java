@@ -21,9 +21,7 @@ public class RegistrationTest {
 
     @Before
     public void setUp() {
-
         open(REGISTER_PAGE_URL, RegisterPage.class);
-
     }
 
 
@@ -47,7 +45,6 @@ public class RegistrationTest {
         userActions.createUser(userData);
         registerPage.fillFormRegisterUser(userData);
         assertTrue(loginPage.isLoginPage());
-
     }
 
     @Test
@@ -56,6 +53,5 @@ public class RegistrationTest {
         userData = UserData.getInvalidPasswordRandom();
         registerPage.fillFormRegisterUser(userData);
         assertTrue(registerPage.errorMessage("Некорректный пароль "));
-
     }
 }
