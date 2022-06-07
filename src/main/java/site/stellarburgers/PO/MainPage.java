@@ -60,9 +60,6 @@ public class MainPage {
     public SelenideElement fillingTitle;
     @FindBy(how = How.CSS, using = "div[class*='BurgerIngredients_ingredients__menuContainer__Xu3Mo'] > h2:nth-of-type(1)")
     public SelenideElement bunTitle;
-    @FindBy(how = How.CSS, using = "tab_tab_type_current__2BEPc")
-    public SelenideElement constructorCheak;
-
     @FindBy(how = How.CSS, using = ".tab_tab_type_current__2BEPc")
     public SelenideElement clickedButton;
 
