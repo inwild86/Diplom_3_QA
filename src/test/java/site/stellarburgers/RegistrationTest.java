@@ -21,7 +21,9 @@ public class RegistrationTest {
 
     @Before
     public void setUp() {
+
         open(REGISTER_PAGE_URL, RegisterPage.class);
+
     }
 
 
@@ -30,7 +32,9 @@ public class RegistrationTest {
 
         ValidatableResponse loginResponse = userActions.loginUser(new User(userData.email, userData.password));
         token = loginResponse.extract().path("accessToken");
-        userActions.deleteUser(token);
+        if (token != null) {
+            userActions.deleteUser(token);
+        }
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
     }
@@ -38,7 +42,9 @@ public class RegistrationTest {
     @Test
     @DisplayName("Registration of a new user with correct data")
     public void newUserRegistration() {
+
         userData = UserData.getRandomUser();
+        userActions.createUser(userData);
         registerPage.fillFormRegisterUser(userData);
         assertTrue(loginPage.isLoginPage());
 

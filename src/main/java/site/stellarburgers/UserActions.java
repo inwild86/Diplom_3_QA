@@ -44,7 +44,6 @@ public class UserActions extends Specification {
     public ValidatableResponse loginUser(User user) {
         return given()
                 .spec(getBaseSpec())
-                .and()
                 .body(user)
                 .when()
                 .post(EndpointsUserApi.USER_LOGIN)

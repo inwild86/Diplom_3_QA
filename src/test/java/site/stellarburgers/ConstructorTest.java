@@ -8,10 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 import site.stellarburgers.PO.*;
 
+import static com.codeborne.selenide.Condition.cssClass;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
-import static site.stellarburgers.PO.MainPage.MAIN_PAGE_URL;
+import static site.stellarburgers.PO.MainPage.*;
 
 public class ConstructorTest {
     public UserActions userActions;
@@ -21,16 +23,11 @@ public class ConstructorTest {
 
     @Before
     public void setUp() {
-        userActions = new UserActions();
-        userData = UserData.getRandomUser();
-        Response response = userActions.createUser(userData);
-        token = userActions.getAccessToken(response);
         open(MAIN_PAGE_URL, MainPage.class);
     }
 
     @After
     public void tearDown() {
-        userActions.deleteCustomer(token);
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
     }
@@ -39,20 +36,20 @@ public class ConstructorTest {
     @DisplayName("Checking Sauce tabs")
     public void clickOnSauceButtonTest() {
         mainPage.clickSaucesButton();
-        assertTrue("Isn't sauces tab", mainPage.isSaucesTabText());
+        assertEquals("Isn't sauce tab", "Соусы", mainPage.getTextClickedButton());
     }
 
     @Test
     @DisplayName("Checking Fillings tabs")
     public void clickOnFillingsButtonTest() {
         mainPage.clickFillingsButton();
-        assertTrue("Isn't fillings tab", mainPage.isFillingsTabText());
+        assertEquals("Isn't fillings tab", "Начинки", mainPage.getTextClickedButton());
     }
 
     @Test
     @DisplayName("Checking Bread tabs")
     public void clickOnBreadButtonTest() {
         mainPage.clickBunsButton();
-        assertTrue("Isn't buns tab", mainPage.isBunsTabText());
+        assertEquals("Isn't buns tab", "Булки", mainPage.getTextClickedButton());
     }
 }

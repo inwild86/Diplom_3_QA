@@ -5,8 +5,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 
 public class MainPage {
 
@@ -33,11 +32,12 @@ public class MainPage {
     @FindBy(how = How.XPATH, using = ".//*[@class='text text_type_main-medium mb-6 mt-10' and text()='Начинки']")
     private SelenideElement fillingsTab;
 
-    @FindBy(how = How.XPATH, using = ".//h2[contains(text(),'Начинки')]")
+    @FindBy(how = How.XPATH, using = "//span[text()='Начинки']")
     private SelenideElement fillingsButton;
 
-    @FindBy(how = How.XPATH, using = "//*[text()='Соусы']")
-    private SelenideElement saucesButton;
+    @FindBy(how = How.XPATH, using = "//span[text()='Соусы']")
+    public SelenideElement saucesButton;
+
 
     @FindBy(how = How.XPATH, using = ".//*[@class='text text_type_main-medium mb-6 mt-10' and text()='Соусы']")
     private SelenideElement saucesTab;
@@ -46,8 +46,8 @@ public class MainPage {
     private SelenideElement bunsButton;
     @FindBy(how = How.CLASS_NAME, using = "BurgerConstructor_basket__list__l9dp_")
     private SelenideElement orderBasket;
-    @FindBy(how = How.XPATH, using = ".//*[@class='text text_type_main-medium mb-6 mt-10' and text()='Булки']")
-    private SelenideElement bunsTab;
+    @FindBy(how = How.XPATH, using = "//span[text()='Булки']")
+    public  SelenideElement bunsTab;
     @FindBy(how = How.XPATH, using = "//p[text()='Сыр с астероидной плесенью']")
     private SelenideElement lastIngredient;
     @FindBy(how = How.XPATH, using = ".//p[text()='Соус Spicy-X']")
@@ -60,7 +60,16 @@ public class MainPage {
     public SelenideElement fillingTitle;
     @FindBy(how = How.CSS, using = "div[class*='BurgerIngredients_ingredients__menuContainer__Xu3Mo'] > h2:nth-of-type(1)")
     public SelenideElement bunTitle;
+    @FindBy(how = How.CSS, using = "tab_tab_type_current__2BEPc")
+    public SelenideElement constructorCheak;
 
+    @FindBy(how = How.CSS, using = ".tab_tab_type_current__2BEPc")
+    public SelenideElement clickedButton;
+
+    @Step("Getting the text of the pressed button")
+    public String getTextClickedButton() {
+        return clickedButton.getText();
+    }
     @Step("Click constructor button")
     public void clickConstructor() {
         constructor.click();
@@ -79,11 +88,6 @@ public class MainPage {
     @Step("Click Personal Account button")
     public void clickLinkPersonalArea() {
         personalArea.click();
-    }
-
-    @Step("Click Link Logo button")
-    public void clickLinkLogo() {
-        linkLogo.click();
     }
 
     @Step("Checking the display of the Checkout button")
@@ -117,9 +121,4 @@ public class MainPage {
         bunsButton.click();
     }
 
-    @Step("Check buns tab exact text 'Булки'")
-    public boolean isBunsTabText() {
-        return bunTitle.shouldBe(visible).isDisplayed();
-
-    }
 }
